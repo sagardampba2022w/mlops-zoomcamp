@@ -1,0 +1,16 @@
+artifact_uri: file:///workspaces/mlops-zoomcamp/02-experiment_tracking/homework/mlruns/0/ac60d954fee64d1784a22e0b7829b5b7/artifacts
+deleted_time: 1745352127588
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: ac60d954fee64d1784a22e0b7829b5b7
+run_name: righteous-tern-772
+run_uuid: ac60d954fee64d1784a22e0b7829b5b7
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745351731607
+status: 1
+tags: []
+user_id: codespace

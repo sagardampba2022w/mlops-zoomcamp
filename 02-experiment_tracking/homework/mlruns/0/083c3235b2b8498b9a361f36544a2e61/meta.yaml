@@ -1,0 +1,16 @@
+artifact_uri: file:///workspaces/mlops-zoomcamp/02-experiment_tracking/homework/mlruns/0/083c3235b2b8498b9a361f36544a2e61/artifacts
+deleted_time: 1745352127573
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 083c3235b2b8498b9a361f36544a2e61
+run_name: suave-perch-222
+run_uuid: 083c3235b2b8498b9a361f36544a2e61
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745351787358
+status: 1
+tags: []
+user_id: codespace

@@ -1,0 +1,15 @@
+artifact_uri: file:///workspaces/mlops-zoomcamp/02-experiment_tracking/homework/mlruns/0/38cc3ce4d3074907a0dd38e05ae87eb9/artifacts
+end_time: 1745352103323
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 38cc3ce4d3074907a0dd38e05ae87eb9
+run_name: mercurial-loon-122
+run_uuid: 38cc3ce4d3074907a0dd38e05ae87eb9
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745352091834
+status: 3
+tags: []
+user_id: codespace

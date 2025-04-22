@@ -1,0 +1,16 @@
+artifact_uri: file:///workspaces/mlops-zoomcamp/02-experiment_tracking/homework/mlruns/0/449a4a07a7234f278c0c2854f27eb486/artifacts
+deleted_time: 1745352127607
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 449a4a07a7234f278c0c2854f27eb486
+run_name: silent-squirrel-545
+run_uuid: 449a4a07a7234f278c0c2854f27eb486
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745351391340
+status: 1
+tags: []
+user_id: codespace

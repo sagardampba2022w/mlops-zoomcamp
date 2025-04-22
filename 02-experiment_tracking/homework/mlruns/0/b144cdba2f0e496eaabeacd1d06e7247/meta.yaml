@@ -1,0 +1,16 @@
+artifact_uri: file:///workspaces/mlops-zoomcamp/02-experiment_tracking/homework/mlruns/0/b144cdba2f0e496eaabeacd1d06e7247/artifacts
+deleted_time: 1745352127578
+end_time: 1745351964434
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: b144cdba2f0e496eaabeacd1d06e7247
+run_name: nebulous-boar-658
+run_uuid: b144cdba2f0e496eaabeacd1d06e7247
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745351952958
+status: 3
+tags: []
+user_id: codespace

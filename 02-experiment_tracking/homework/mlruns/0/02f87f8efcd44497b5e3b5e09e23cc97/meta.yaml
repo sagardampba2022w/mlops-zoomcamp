@@ -1,0 +1,16 @@
+artifact_uri: file:///workspaces/mlops-zoomcamp/02-experiment_tracking/homework/mlruns/0/02f87f8efcd44497b5e3b5e09e23cc97/artifacts
+deleted_time: 1745352127564
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: deleted
+run_id: 02f87f8efcd44497b5e3b5e09e23cc97
+run_name: dapper-cat-266
+run_uuid: 02f87f8efcd44497b5e3b5e09e23cc97
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745351869324
+status: 1
+tags: []
+user_id: codespace
