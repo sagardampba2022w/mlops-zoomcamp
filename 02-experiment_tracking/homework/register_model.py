@@ -14,7 +14,9 @@ RF_PARAMS = ['max_depth', 'n_estimators', 'min_samples_split', 'min_samples_leaf
 
 mlflow.set_tracking_uri("http://127.0.0.1:5000")
 mlflow.set_experiment(EXPERIMENT_NAME)
-mlflow.sklearn.autolog()
+
+# ❌ Disable autologging
+# mlflow.sklearn.autolog()  ← commented out
 
 
 def load_pickle(filename):
@@ -27,10 +29,11 @@ def train_and_log_model(data_path, params):
     X_val, y_val = load_pickle(os.path.join(data_path, "val.pkl"))
     X_test, y_test = load_pickle(os.path.join(data_path, "test.pkl"))
 
-    with mlflow.start_run():
+    with mlflow.start_run() as run:
         new_params = {}
         for param in RF_PARAMS:
             new_params[param] = int(params[param])
+            mlflow.log_param(param, new_params[param])  # 👈 manually log parameters
 
         rf = RandomForestRegressor(**new_params)
         rf.fit(X_train, y_train)
@@ -38,8 +41,14 @@ def train_and_log_model(data_path, params):
         # Evaluate model on the validation and test sets
         val_rmse = mean_squared_error(y_val, rf.predict(X_val), squared=False)
         mlflow.log_metric("val_rmse", val_rmse)
+
         test_rmse = mean_squared_error(y_test, rf.predict(X_test), squared=False)
         mlflow.log_metric("test_rmse", test_rmse)
+
+        # Log the model manually
+        mlflow.sklearn.log_model(rf, artifact_path="model")
+
+        return run.info.run_id, test_rmse
 
 
 @click.command()
@@ -66,16 +75,34 @@ def run_register_model(data_path: str, top_n: int):
         max_results=top_n,
         order_by=["metrics.rmse ASC"]
     )
+
+    best_rmse = float("inf")
+    best_run_id = None
+
     for run in runs:
-        train_and_log_model(data_path=data_path, params=run.data.params)
+        run_id, test_rmse = train_and_log_model(data_path=data_path, params=run.data.params)
+        if test_rmse < best_rmse:
+            best_rmse = test_rmse
+            best_run_id = run_id
 
-    # Select the model with the lowest test RMSE
-    experiment = client.get_experiment_by_name(EXPERIMENT_NAME)
-    # best_run = client.search_runs( ...  )[0]
+    # Register the best model manually
+    best_model_uri = f"runs:/{best_run_id}/model"
+    mlflow.register_model(model_uri=best_model_uri, name="random-forest-regressor")
 
-    # Register the best model
-    # mlflow.register_model( ... )
+    print(f"✅ Registered best model: {best_model_uri}")
+    print(f"🏆 Best test RMSE: {best_rmse:.3f}")
 
 
 if __name__ == '__main__':
+    # To run this script:
+    # python register_model.py --data_path ./output --top_n 5
     run_register_model()
+# Register the best model from the hyperparameter tuning runs
+# python register_model.py --data_path ./output --top_n 5
+# You can also run this script using the command line:
+# python register_model.py --data_path ./output --top_n 5
+#
+# Note: Make sure to have MLflow server running and the required packages installed.
+#
+# To view the registered models, you can use the MLflow UI:
+# mlflow models serve -m models:/random-forest-regressor/1 -p 1234

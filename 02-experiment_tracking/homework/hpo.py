@@ -33,14 +33,32 @@ def run_optimization(data_path: str, num_trials: int):
     X_train, y_train = load_pickle(os.path.join(data_path, "train.pkl"))
     X_val, y_val = load_pickle(os.path.join(data_path, "val.pkl"))
 
+#     def objective(params):
+
+#         rf = RandomForestRegressor(**params)
+#         rf.fit(X_train, y_train)
+#         y_pred = rf.predict(X_val)
+#         rmse = mean_squared_error(y_val, y_pred, squared=False)
+
+#         return {'loss': rmse, 'status': STATUS_OK}
+
+    # Define the objective function    
     def objective(params):
+        with mlflow.start_run():
+            # Log hyperparameters
+            mlflow.log_params(params)
 
-        rf = RandomForestRegressor(**params)
-        rf.fit(X_train, y_train)
-        y_pred = rf.predict(X_val)
-        rmse = mean_squared_error(y_val, y_pred, squared=False)
+            # Train model
+            rf = RandomForestRegressor(**params)
+            rf.fit(X_train, y_train)
+            y_pred = rf.predict(X_val)
 
-        return {'loss': rmse, 'status': STATUS_OK}
+            # Compute and log RMSE
+            rmse = mean_squared_error(y_val, y_pred, squared=False)
+            mlflow.log_metric("rmse", rmse)
+
+            return {'loss': rmse, 'status': STATUS_OK}
+
 
     search_space = {
         'max_depth': scope.int(hp.quniform('max_depth', 1, 20, 1)),
